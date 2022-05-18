@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Character creator - Accessible Dungeons and Dragons character sheet</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="">
+</head>
+
+<body>
+  <h1>Character creator</h1>
+  <p>Use this form to create your character</p>
+
+  <form action="">
+    <h2>About your character</h2>
+
+    <label id="about-character-name-label">Name:</label>
+    <p id="about-character-name" aria-labelledby="about-character-name-label"></p>
+
+    <label id="about-character-class-label">Class:</label>
+    <p id="about-character-class" aria-labelledby="about-character-class-label"></p>
+
+    <label id="about-character-level-label">Level:</label>
+    <p id="about-character-level" aria-labelledby="about-character-level-label"></p>
+
+    <label id="about-character-race-label">Race:</label>
+    <p id="about-character-race" aria-labelledby="about-character-race-label"></p>
+
+    <label id="about-character-background-label">Background:</label>
+    <p id="about-character-background" aria-labelledby="about-character-background-label"></p>
+
+    <label id="about-character-alignment-label">Alignment:</label>
+    <p id="about-character-alignment" aria-labelledby="about-character-alignment-label"></p>
+
+    <button type="button" onclick="store()">Save</button>
+
+  </form>
+
+  <p><a href="../character-creator/index.html">Edit your character</a></p>
+
+  <script>
+    let retrievedObject = JSON.parse(localStorage.getItem('testCharacterData'));
+
+    console.log('retrievedObject: ', retrievedObject);
+
+    console.log(retrievedObject.characterName);
+
+    document.querySelector("#about-character-name").textContent = retrievedObject.characterName;
+    document.querySelector("#about-character-class").textContent = retrievedObject.characterClass;
+    document.querySelector("#about-character-level").textContent = retrievedObject.characterLevel;
+    document.querySelector("#about-character-race").textContent = retrievedObject.characterRace;
+    document.querySelector("#about-character-background").textContent = retrievedObject.characterBackground;
+    document.querySelector("#about-character-alignment").textContent = retrievedObject.characterAlignment;
+
+  </script>
+
+
+</body>
+
+</html>
