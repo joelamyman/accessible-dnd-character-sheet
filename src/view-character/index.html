@@ -1,63 +1,201 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Character creator - Accessible Dungeons and Dragons character sheet</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Character creator - Accessible Dungeons and Dragons character sheet</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+  </head>
 
-<body>
-  <h1>Character creator</h1>
-  <p>Use this form to create your character</p>
+  <body>
+    <h1>Character creator</h1>
+    <p>Use this form to create your character</p>
 
-  <form action="">
-    <h2>About your character</h2>
+    <form action="">
+      <h2>About your character</h2>
 
-    <label id="about-character-name-label">Name:</label>
-    <p id="about-character-name" aria-labelledby="about-character-name-label"></p>
+      <label id="about-character-name-label">Name:</label>
+      <p id="about-character-name" aria-labelledby="about-character-name-label"></p>
 
-    <label id="about-character-class-label">Class:</label>
-    <p id="about-character-class" aria-labelledby="about-character-class-label"></p>
+      <label id="about-character-class-label">Class:</label>
+      <p id="about-character-class" aria-labelledby="about-character-class-label"></p>
 
-    <label id="about-character-level-label">Level:</label>
-    <p id="about-character-level" aria-labelledby="about-character-level-label"></p>
+      <label id="about-character-level-label">Level:</label>
+      <p id="about-character-level" aria-labelledby="about-character-level-label"></p>
 
-    <label id="about-character-race-label">Race:</label>
-    <p id="about-character-race" aria-labelledby="about-character-race-label"></p>
+      <label id="about-character-race-label">Race:</label>
+      <p id="about-character-race" aria-labelledby="about-character-race-label"></p>
 
-    <label id="about-character-background-label">Background:</label>
-    <p id="about-character-background" aria-labelledby="about-character-background-label"></p>
+      <label id="about-character-background-label">Background:</label>
+      <p id="about-character-background" aria-labelledby="about-character-background-label"></p>
 
-    <label id="about-character-alignment-label">Alignment:</label>
-    <p id="about-character-alignment" aria-labelledby="about-character-alignment-label"></p>
+      <label id="about-character-alignment-label">Alignment:</label>
+      <p id="about-character-alignment" aria-labelledby="about-character-alignment-label"></p>
 
-    <button type="button" onclick="store()">Save</button>
+      <h2>Ability scores</h2>
 
-  </form>
+      <label id="ability-scores-strength-label">Strength:</label>
+      <p id="ability-scores-strength" aria-labelledby="ability-scores-strength-label"></p>
 
-  <p><a href="../character-creator/index.html">Edit your character</a></p>
+      <label id="ability-scores-dexterity-label">Dexterity:</label>
+      <p id="ability-scores-dexterity" aria-labelledby="ability-scores-dexterity-label"></p>
 
-  <script>
-    let retrievedObject = JSON.parse(localStorage.getItem('testCharacterData'));
+      <label id="ability-scores-constitution-label">Constitution:</label>
+      <p id="ability-scores-constitution" aria-labelledby="ability-scores-constitution-label"></p>
 
-    console.log('retrievedObject: ', retrievedObject);
+      <label id="ability-scores-intelligence-label">Intelligence:</label>
+      <p id="ability-scores-intelligence" aria-labelledby="ability-scores-intelligence-label"></p>
 
-    console.log(retrievedObject.characterName);
+      <label id="ability-scores-wisdom-label">Wisdom:</label>
+      <p id="ability-scores-wisdom" aria-labelledby="ability-scores-wisdom-label"></p>
 
-    document.querySelector("#about-character-name").textContent = retrievedObject.characterName;
-    document.querySelector("#about-character-class").textContent = retrievedObject.characterClass;
-    document.querySelector("#about-character-level").textContent = retrievedObject.characterLevel;
-    document.querySelector("#about-character-race").textContent = retrievedObject.characterRace;
-    document.querySelector("#about-character-background").textContent = retrievedObject.characterBackground;
-    document.querySelector("#about-character-alignment").textContent = retrievedObject.characterAlignment;
+      <label id="ability-scores-charisma-label">Charisma:</label>
+      <p id="ability-scores-charisma" aria-labelledby="ability-scores-charisma-label"></p>
 
-  </script>
+      <button type="button" onclick="store()">Save</button>
 
+    </form>
 
-</body>
+    <p>
+      <a href="../character-creator/index.html">Edit your character</a>
+    </p>
+
+    <script>
+      let retrievedObject = JSON.parse(localStorage.getItem('testCharacterData'));
+
+      console.log('retrievedObject: ', retrievedObject);
+
+      console.log(retrievedObject.characterName);
+
+      //About character
+      document
+        .querySelector("#about-character-name")
+        .textContent = retrievedObject.characterName;
+      document
+        .querySelector("#about-character-class")
+        .textContent = retrievedObject.characterClass;
+      document
+        .querySelector("#about-character-level")
+        .textContent = `${retrievedObject.characterLevel}, proficiency bonus: ${calculateProficiencyBonus(parseInt(retrievedObject.characterLevel))}`;
+      document
+        .querySelector("#about-character-race")
+        .textContent = retrievedObject.characterRace;
+      document
+        .querySelector("#about-character-background")
+        .textContent = retrievedObject.characterBackground;
+      document
+        .querySelector("#about-character-alignment")
+        .textContent = retrievedObject.characterAlignment;
+      //Ability scores
+      document
+        .querySelector("#ability-scores-strength")
+        .textContent = `${retrievedObject.abilityStrength}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityStrength))}`;
+      document
+        .querySelector("#ability-scores-dexterity")
+        .textContent = `${retrievedObject.abilityDexterity}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityDexterity))}`;
+      document
+        .querySelector("#ability-scores-constitution")
+        .textContent = `${retrievedObject.abilityConstitution}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityConstitution))}`;
+      document
+        .querySelector("#ability-scores-intelligence")
+        .textContent = `${retrievedObject.abilityIntelligence}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityIntelligence))}`;
+      document
+        .querySelector("#ability-scores-wisdom")
+        .textContent = `${retrievedObject.abilityWisdom}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityWisdom))}`;
+      document
+        .querySelector("#ability-scores-charisma")
+        .textContent = `${retrievedObject.abilityCharisma}, modifier: ${calculateAbilityModifiers(parseInt(retrievedObject.abilityCharisma))}`;
+
+      function calculateAbilityModifiers(abilityScore) {
+        let abilityModifierScore;
+        switch (abilityScore) {
+          case 0:
+          case 1:
+          case 2:
+          case 3:
+            abilityModifierScore = "-4";
+            break;
+          case 4:
+          case 5:
+            abilityModifierScore = "-3";
+            break;
+          case 6:
+          case 7:
+            abilityModifierScore = "-2";
+            break;
+          case 8:
+          case 9:
+            abilityModifierScore = "-1";
+            break;
+          case 10:
+          case 11:
+            abilityModifierScore = "0";
+            break;
+          case 12:
+          case 13:
+            abilityModifierScore = "+1";
+            break;
+          case 14:
+          case 15:
+            abilityModifierScore = "+2";
+            break;
+          case 16:
+          case 17:
+            abilityModifierScore = "+3";
+            break;
+          case 18:
+          case 19:
+            abilityModifierScore = "+4";
+            break;
+          case 20:
+          case 21:
+            abilityModifierScore = "+5";
+            break;
+        }
+        return abilityModifierScore;
+      }
+
+      function calculateProficiencyBonus(characterLevel) {
+        let proficiencyBonus;
+        switch (characterLevel) {
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            proficiencyBonus = "+2";
+            break;
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+            proficiencyBonus = "+3";
+            break;
+          case 9:
+          case 10:
+          case 11:
+          case 12:
+            proficiencyBonus = "+4";
+            break;
+          case 13:
+          case 14:
+          case 15:
+          case 16:
+            proficiencyBonus = "+5";
+            break;
+          case 17:
+          case 18:
+          case 19:
+          case 20:
+            proficiencyBonus = "+6";
+            break;
+        }
+        return proficiencyBonus;
+      }
+    </script>
+
+  </body>
 
 </html>

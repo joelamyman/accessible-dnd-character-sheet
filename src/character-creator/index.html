@@ -1,82 +1,171 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Character creator - Accessible Dungeons and Dragons character sheet</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Character creator - Accessible Dungeons and Dragons character sheet</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+  </head>
 
-<body>
-  <h1>Character creator</h1>
-  <p>Use this form to create your character</p>
+  <body>
+    <h1>Character creator</h1>
+    <p>Use this form to create your character</p>
 
-  <form action="">
-    <h2>About your character</h2>
+    <form action="">
+      <h2>About your character</h2>
 
-    <label for="about-character-name">Name</label>
-    <input id="about-character-name" type="text">
+      <label for="about-character-name">Name</label>
+      <input id="about-character-name" type="text">
 
-    <label for="about-character-class">Class</label>
-    <input id="about-character-class" type="text">
+      <label for="about-character-class">Class</label>
+      <input id="about-character-class" type="text">
 
-    <label for="about-character-level">Level</label>
-    <input id="about-character-level" type="text">
+      <label for="about-character-level">Level</label>
+      <input id="about-character-level" type="text">
 
-    <label for="about-character-race">Race</label>
-    <input id="about-character-race" type="text">
+      <label for="about-character-race">Race</label>
+      <input id="about-character-race" type="text">
 
-    <label for="about-character-background">Background</label>
-    <input id="about-character-background" type="text">
+      <label for="about-character-background">Background</label>
+      <input id="about-character-background" type="text">
 
-    <label for="about-character-alignment">Alignment</label>
-    <input id="about-character-alignment" type="text">
+      <label for="about-character-alignment">Alignment</label>
+      <input id="about-character-alignment" type="text">
 
-    <button type="button" onclick="store()">Save</button>
+      <h2>Ability scores</h2>
 
-  </form>
+      <label for="ability-scores-strength">Strength</label>
+      <input id="ability-scores-strength" type="text">
 
-  <p><a href="../view-character/index.html">View your character</a></p>
+      <label for="ability-scores-dexterity">Dexterity</label>
+      <input id="ability-scores-dexterity" type="text">
 
-  <script>
-    let retrievedObject = JSON.parse(localStorage.getItem('testCharacterData'));
+      <label for="ability-scores-constitution">Constitution</label>
+      <input id="ability-scores-constitution" type="text">
 
-    console.log('retrievedObject: ', retrievedObject);
+      <label for="ability-scores-intelligence">Intelligence</label>
+      <input id="ability-scores-intelligence" type="text">
 
-    console.log(retrievedObject.characterName);
+      <label for="ability-scores-wisdom">Wisdom</label>
+      <input id="ability-scores-wisdom" type="text">
 
-    document.querySelector("#about-character-name").value = retrievedObject.characterName;
-    document.querySelector("#about-character-class").value = retrievedObject.characterClass;
-    document.querySelector("#about-character-level").value = retrievedObject.characterLevel;
-    document.querySelector("#about-character-race").value = retrievedObject.characterRace;
-    document.querySelector("#about-character-background").value = retrievedObject.characterBackground;
-    document.querySelector("#about-character-alignment").value = retrievedObject.characterAlignment;
+      <label for="ability-scores-charisma">Charisma</label>
+      <input id="ability-scores-charisma" type="text">
 
-    function store() {
-      const characterName = document.querySelector("#about-character-name").value;
-      const characterClass = document.querySelector("#about-character-class").value;
-      const characterLevel = document.querySelector("#about-character-level").value;
-      const characterRace = document.querySelector("#about-character-race").value;
-      const characterBackground = document.querySelector("#about-character-background").value;
-      const characterAlignment = document.querySelector("#about-character-alignment").value;
+      <button type="button" onclick="store()">Save</button>
 
-      let characterData = {
-        'characterName': characterName,
-        'characterClass': characterClass,
-        'characterLevel': characterLevel,
-        'characterRace': characterRace,
-        'characterBackground': characterBackground,
-        'characterAlignment': characterAlignment,
+    </form>
+
+    <p>
+      <a href="../view-character/index.html">View your character</a>
+    </p>
+
+    <script>
+      let retrievedObject = JSON.parse(localStorage.getItem('testCharacterData'));
+
+      console.log('retrievedObject: ', retrievedObject);
+
+      console.log(retrievedObject.characterName);
+
+      // About character
+      document
+        .querySelector("#about-character-name")
+        .value = retrievedObject.characterName;
+      document
+        .querySelector("#about-character-class")
+        .value = retrievedObject.characterClass;
+      document
+        .querySelector("#about-character-level")
+        .value = retrievedObject.characterLevel;
+      document
+        .querySelector("#about-character-race")
+        .value = retrievedObject.characterRace;
+      document
+        .querySelector("#about-character-background")
+        .value = retrievedObject.characterBackground;
+      document
+        .querySelector("#about-character-alignment")
+        .value = retrievedObject.characterAlignment;
+      //Ability scores
+      document
+        .querySelector("#ability-scores-strength")
+        .value = retrievedObject.abilityStrength;
+      document
+        .querySelector("#ability-scores-dexterity")
+        .value = retrievedObject.abilityDexterity;
+      document
+        .querySelector("#ability-scores-constitution")
+        .value = retrievedObject.abilityConstitution;
+      document
+        .querySelector("#ability-scores-intelligence")
+        .value = retrievedObject.abilityIntelligence;
+      document
+        .querySelector("#ability-scores-wisdom")
+        .value = retrievedObject.abilityWisdom;
+      document
+        .querySelector("#ability-scores-charisma")
+        .value = retrievedObject.abilityCharisma;
+
+      function store() {
+        const characterName = document
+          .querySelector("#about-character-name")
+          .value;
+        const characterClass = document
+          .querySelector("#about-character-class")
+          .value;
+        const characterLevel = document
+          .querySelector("#about-character-level")
+          .value;
+        const characterRace = document
+          .querySelector("#about-character-race")
+          .value;
+        const characterBackground = document
+          .querySelector("#about-character-background")
+          .value;
+        const characterAlignment = document
+          .querySelector("#about-character-alignment")
+          .value;
+        const abilityStrength = document
+          .querySelector("#ability-scores-strength")
+          .value;
+        const abilityDexterity = document
+          .querySelector("#ability-scores-dexterity")
+          .value;
+        const abilityConstitution = document
+          .querySelector("#ability-scores-constitution")
+          .value;
+        const abilityIntelligence = document
+          .querySelector("#ability-scores-intelligence")
+          .value;
+        const abilityWisdom = document
+          .querySelector("#ability-scores-wisdom")
+          .value;
+        const abilityCharisma = document
+          .querySelector("#ability-scores-charisma")
+          .value;
+
+        let characterData = {
+          'characterName': characterName,
+          'characterClass': characterClass,
+          'characterLevel': characterLevel,
+          'characterRace': characterRace,
+          'characterBackground': characterBackground,
+          'characterAlignment': characterAlignment,
+          'abilityStrength': abilityStrength,
+          'abilityDexterity': abilityDexterity,
+          'abilityConstitution': abilityConstitution,
+          'abilityIntelligence': abilityIntelligence,
+          'abilityWisdom': abilityWisdom,
+          'abilityCharisma': abilityCharisma
+        }
+
+        localStorage.setItem('testCharacterData', JSON.stringify(characterData));
       }
+    </script>
 
-      localStorage.setItem('testCharacterData', JSON.stringify(characterData));
-    }
-  </script>
-
-
-</body>
+  </body>
 
 </html>
